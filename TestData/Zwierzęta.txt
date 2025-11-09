@@ -1,0 +1,12 @@
+The image you've provided is a horizontal bar chart titled "Number of Households in the USA Owning Pets.
+The chart shows the number of U.S. households, in millions, that own various types of pets.
+The data reveals the following breakdown of pet ownership:
+Dogs are owned by the largest number of households, at approximately 45 million households.
+Cats are the second most commonly owned pet, with ownership in approximately 39 million households.
+Freshwater Fish are the third most popular pet category, owned by around 12 million households.
+Birds are owned by about 6 million households.
+Small Animals (such as hamsters, guinea pigs, etc.) and Reptiles are owned by approximately 5 million households each.
+Equine (horses) are owned by a small number of households, around 2 million.
+Saltwater Fish are owned by the fewest households, at less than 1 million.
+
+In summary, Dogs and Cats overwhelmingly dominate pet ownership among U.S. households.

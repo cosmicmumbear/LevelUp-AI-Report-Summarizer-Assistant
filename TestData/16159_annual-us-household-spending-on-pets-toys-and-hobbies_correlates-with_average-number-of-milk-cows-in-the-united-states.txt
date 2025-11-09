@@ -1,0 +1,9 @@
+The chart displays a high correlation between two seemingly unrelated metrics: 
+Annual US household spending on pets, toys, and hobbies (red line)
+ and the Average number of milk cows in the United States (dashed black line)
+ from 2000 to 2022. The household spending is measured in dollars (y-axis on the left, ranging from $334 to $969), 
+while the number of milk cows is measured in thousands of cows (y-axis on the right, ranging from 9.0K to 9.4K). 
+A strong positive correlation is indicated by the statistical data: r=0.908 and r2=0.824, 
+confirming the similar upward trend of both lines over the 22-year period. 
+The graph illustrates a classic example of a "spurious correlation,"
+ where two variables move together without a causal relationship.

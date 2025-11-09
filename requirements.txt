@@ -1,0 +1,13 @@
+# Azure AI Vision SDK dla OCR / Vision (odczyt tekstu z wykresu) 
+azure-ai-vision-imageanalysis 
+
+# Biblioteka OpenAI dla GPT-4o Vision i generowania streszczenia (Chat Completions/Completions)
+openai
+
+# Przechowywanie plikow w Blob
+azure-storage-blob
+
+# Inne potrzebne
+python-dotenv
+gradio
+azure.identity # logowanko

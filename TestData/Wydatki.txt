@@ -1,0 +1,9 @@
+The image you've uploaded is a pie chart showing the breakdown of expenses for Week 1.
+
+The expenses are divided into five categories, with their respective percentages:
+Others	35.3%, Medicine	23.5%, Bills 17.6%, Shopping 11.8%, Food 11.8%
+
+Key Insights
+The category Others accounts for the largest share of expenses at 35.3%.
+Medicine is the second-largest expense, making up 23.5% of the total.
+Shopping and Food represent the smallest and equal portions of the budget, both at 11.8%.

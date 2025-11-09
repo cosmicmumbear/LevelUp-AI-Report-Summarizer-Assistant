@@ -1,0 +1,7 @@
+The document provides a bar chart detailing the channels of pet acquisition in the U.S. in 2022, categorized by pet type: Dogs, Cats, and Other pets. 
+The data is based on a survey of 1,000 U.S. pet owners.
+The chart breaks down how owners acquired their newest pet across six channels: Friends/acquaintances, Breeder , Animal Shelter, From the street/stray animal , Pet Shop, Others
+
+Cats: The dominant way cats are acquired is "From the street/stray animal," accounting for 55% of acquisitions. The second most common channel is "Friends/acquaintances" at 25%.
+Dogs: Dog acquisition is much more evenly distributed. The most common channels are "Friends/acquaintances" (25%) and "Breeder" (24%) , followed closely by the "Animal Shelter" (21%).
+Other Pets: Acquisition of "Other pets" is highly skewed toward the "Animal Shelter" channel, which accounts for nearly half of all acquisitions at 48%.
