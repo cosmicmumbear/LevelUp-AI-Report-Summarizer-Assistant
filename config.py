@@ -35,3 +35,6 @@ client = ImageAnalysisClient(
     endpoint=endpoint,
     credential=DefaultAzureCredential(exclude_interactive_browser_credential=False),
 )
+
+
+[[CIEZKO TO NAPISAC JAK NIE WIEM CO BEDZIE W WASZYCH MODULACH DOKLANDIE ;P DOROBIE JAK ZOBACE WASZE CZESCI]]
