@@ -27,7 +27,7 @@ Below, you will find the instructions to set up and run this app locally...
 ## Prerequsites
 - Create an active Azure subscription.
 - Install the latest Azure Functions Core Tools to use the CLI
-- Python 3.9 or greater
+- Python 3.10 or greater
 - Access permissions to create Azure OpenAI resources and to deploy models.
 
 ## .env
