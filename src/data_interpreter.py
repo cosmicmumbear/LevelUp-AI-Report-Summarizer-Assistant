@@ -4,7 +4,8 @@
 # 1. Takes raw text from Vision SDK (OCR)
 # 2. Cleans and analyzes data
 # 3. Creats a clear description in natural language, 
-#  with modules: !!!!!!!Jeszcze do napisania!!!!!!!
+#  with modules: Name of chart, Source of chart, Type of chart, Variables, Units,
+#                Topic of chart, Trends, Highest and lowest values, Confidence of your answers
 
 from config import AzureConfig
 # Configuration environment to use Azure resources, 
@@ -62,8 +63,10 @@ def interpret(ocr_text: str) -> str:
         # Sending question to GPT-4o
         response = client.chat.completions.create(
             model="gpt-4o",
+            temperature=0.0,
+            max_tokens=400,
             messages=[
-                {"role": "system", "content": "Jesteś ekspertem od analizy danych i wykresów.You are an expert of data analysis and charts."},
+                {"role": "system", "content": "You are an expert of data analysis and charts."},
                 {"role": "user", "content": prompt}
             ]
         )
