@@ -4,9 +4,9 @@ modul_ocr.py
 Moduł do ekstrakcji tekstu z plików PNG i PDF przy użyciu OCRProcessor (Azure Read API).
 """
 
-import os
-from azure.core.exceptions import HttpResponseError
-from ocr_processor import OCRProcessor
+import os # Operacje na plikach i ścieżkach
+from azure.core.exceptions import HttpResponseError  # Obsługa błędów z Azure OCR API
+from ocr_processor import OCRProcessor 
 
 def get_text_from_file(plik: str) -> str:
     """
@@ -15,33 +15,71 @@ def get_text_from_file(plik: str) -> str:
     :return: Rozpoznany tekst jako string (lub pusty string w przypadku błędu).
     """
     if not os.path.isfile(plik):
-        raise FileNotFoundError(f"Plik '{plik}' nie istnieje.")
+        raise FileNotFoundError(f"Plik '{plik}' nie istnieje.")  # Walidacja istnienia pliku
 
     ext = os.path.splitext(plik)[1].lower()
     if ext not in [".png", ".pdf", ".jpg", ".jpeg"]:
-        raise ValueError("Obsługiwane formaty: PNG, JPG, JPEG, PDF.")
+        raise ValueError("Obsługiwane formaty: PNG, JPG, JPEG, PDF.") # Walidacja rozszerzenia
 
-    processor = OCRProcessor()
+    processor = OCRProcessor()  # Tworzymy instancję klasy OCRProcessor
     try:
         # Otwieramy plik w trybie binarnym
         with open(plik, "rb") as f:
             print(f"Rozpoczynam OCR dla pliku: {plik} ---")
             # Wywołanie Read API dla strumienia pliku
-            read_operation = processor.client.read_in_stream(f, raw=True)
-            operation_location = read_operation.headers["Operation-Location"]
-            operation_id = operation_location.split("/")[-1]
+            read_operation = processor.client.read_in_stream(f, raw=True) # Wywołanie OCR API
+            operation_location = read_operation.headers["Operation-Location"] # Pobranie URL wyniku
+            operation_id = operation_location.split("/")[-1]  # Wyciągnięcie ID operacji
 
         # Polling na wynik
         result = processor._poll_for_result(operation_id)
         if result:
             processed = processor._process_read_result(result, plik, description="Local file OCR", language=None, elapsed_time=0)
-            return processed.get("full_text", "")
+            return processed.get("full_text", "")  # Zwracamy rozpoznany tekst
         else:
             print("✗ OCR nie zwrócił wyniku.")
             return ""
     except HttpResponseError as e:
-        print(f"✗ Błąd OCR: {e.message}")
+        print(f"✗ Błąd OCR: {e.message}")  # Obsługa błędów Azure
         return ""
     except Exception as e:
-        print(f"✗ Nieoczekiwany błąd: {e}")
+        print(f"✗ Nieoczekiwany błąd: {e}") # Obsługa innych błędów
         return ""
+
+if __name__ == "__main__":
+    """
+    Demonstracja działania funkcji get_text_from_file.
+    Użycie:
+        python modul_ocr.py <ścieżka_do_pliku>
+    Obsługiwane formaty: PNG, JPG, JPEG, PDF
+    """
+
+    import sys
+
+    if len(sys.argv) < 2:
+        print("❗ Podaj ścieżkę do pliku jako argument.")
+        print("Przykład: python modul_ocr.py dokument.pdf")
+        sys.exit(1)
+
+    plik = sys.argv[1]
+
+    try:
+        tekst = get_text_from_file(plik)
+        if tekst.strip():
+            print("\n✅ Rozpoznany tekst:")
+            print("-" * 70)
+            print(tekst[:1000] + ("..." if len(tekst) > 1000 else ""))  # Podgląd pierwszych 1000 znaków
+            print("-" * 70)
+            
+            
+            # Zapisz do pliku .txt o tej samej nazwie co plik wejściowy z suffixem _result
+            base_name = os.path.splitext(os.path.basename(plik))[0]
+            output_file = base_name + "_result.txt"
+            with open(output_file, "w", encoding="utf-8") as out:
+                out.write(tekst)
+            print(f"\n💾 Rezultat zapisany do pliku: {output_file}")
+
+        else:
+            print("⚠ Brak rozpoznanego tekstu.")
+    except Exception as e:
+        print(f"❌ Wystąpił błąd: {e}")
