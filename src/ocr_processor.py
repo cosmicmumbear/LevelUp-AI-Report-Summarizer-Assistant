@@ -1,5 +1,5 @@
 """
-Task 2: OCR Implementation with Azure Computer Vision Read API
+OCR Implementation with Azure Computer Vision Read API
 AI-102 Topic: Extract text from images using OCR (15-20% of exam)
 """
 
@@ -908,3 +908,4 @@ if __name__ == "__main__":
         # 3. Sprawdź internet (czy dochodzisz do obrazów)
         # 4. Sprawdź Azure (czy nie wyczerpałeś limitu zapytań)
         # To pomaga użytkownikowi samodzielnie rozwiązać problem!
+
