@@ -5,9 +5,10 @@ Moduł do ekstrakcji tekstu z plików PNG i PDF przy użyciu OCRProcessor (Azure
 
 import os  # Operacje na plikach i ścieżkach
 from azure.core.exceptions import HttpResponseError  # Obsługa błędów z Azure OCR API
-from ocr_processor import OCRProcessor
-from .config import AzureConfig
+import time
 from typing import Any
+from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
+from src.config import AzureConfig
 
 
 def get_text_from_file(plik: Any) -> str:
@@ -29,7 +30,6 @@ def get_text_from_file(plik: Any) -> str:
             "Obsługiwane formaty: PNG, JPG, JPEG, PDF."
         )  # Walidacja rozszerzenia
 
-    processor = OCRProcessor()  # Tworzymy instancję klasy OCRProcessor
     try:
         # Otwieramy plik w trybie binarnym
         with open(plik, "rb") as f:
@@ -49,19 +49,24 @@ def get_text_from_file(plik: Any) -> str:
         operation_id = operation_location.split("/")[-1]  # Wyciągnięcie ID operacji
 
         # Polling na wynik
-        result = processor._poll_for_result(operation_id)
-        if result:
-            processed = processor._process_read_result(
-                result,
-                plik,
-                description="Local file OCR",
-                language=None,
-                elapsed_time=0,
-            )
-            return processed.get("full_text", "")  # Zwracamy rozpoznany tekst
+        while True:
+            read_result: Any = client.get_read_result(operation_id)
+            if read_result.status not in ["notStarted", "running"]:
+                break
+            time.sleep(1)
+
+        # 6. Przetwarzanie wyniku - ZAMIAST processor._process_read_result
+        if read_result.status == OperationStatusCodes.succeeded:
+            text_results = []
+            if read_result.analyze_result and read_result.analyze_result.read_results:
+                for text_result in read_result.analyze_result.read_results:
+                    for line in text_result.lines:
+                        text_results.append(line.text)
+
+            final_text = "\n".join(text_results)
+            return final_text if final_text else "OCR sukces, ale brak tekstu."
         else:
-            print("✗ OCR nie zwrócił wyniku.")
-            return ""
+            return "Błąd rozpoznawania tekstu przez Azure."
     except HttpResponseError as e:
         print(f"✗ Błąd OCR: {e.message}")  # Obsługa błędów Azure
         return ""
