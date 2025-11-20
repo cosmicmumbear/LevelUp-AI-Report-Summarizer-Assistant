@@ -1,18 +1,21 @@
 """Task 2: Interpretacja Danych z OCR (AI Visual Data Reporter)"""
+
 # Task 2 - Interpretation of OCR Data
 # Purpose:
 # 1. Takes raw text from Vision SDK (OCR)
 # 2. Cleans and analyzes data
-# 3. Creats a clear description in natural language, 
+# 3. Creats a clear description in natural language,
 #  with modules: Name of chart, Source of chart, Type of chart, Variables, Units,
 #                Topic of chart, Trends, Highest and lowest values, Confidence of your answers
 
-from config import AzureConfig
-# Configuration environment to use Azure resources, 
+from .config import AzureConfig
+
+# Configuration environment to use Azure resources,
 # taking information like: API_KEY, API_ENDPOINT from .env
 
-from azure.ai.openai import AzureOpenAI 
-# setup communication with Azure OpenAI resources 
+from openai import AzureOpenAI
+
+# setup communication with Azure OpenAI resources
 
 
 def interpret(ocr_text: str) -> str:
@@ -21,7 +24,11 @@ def interpret(ocr_text: str) -> str:
     """
     print("\n=== INTERPRETATION OF OCR DATA ===")
     # Informing we start interpreting procedure
-    
+
+    if not ocr_text or not ocr_text.strip():
+        print("⚠️ OCR returned empty text. Skipping interpretation.")
+        return "No text available for interpretation."
+
     # PROMPT
     prompt = f"""
     Interpret the following OCR text extracted from a chart.
@@ -53,28 +60,44 @@ def interpret(ocr_text: str) -> str:
 
     try:
         # Connection to Azure OpenAI
+        endpoint = AzureConfig.AZURE_OPENAI_ENDPOINT
+        key = AzureConfig.AZURE_OPENAI_KEY
+
+        if not endpoint or not key:
+            raise ValueError("Missing Azure OpenAI credentials in .env file.")
+
         client = AzureOpenAI(
-            azure_endpoint=AzureConfig.AZURE_OPENAI_ENDPOINT,
-            api_key=AzureConfig.AZURE_OPENAI_KEY
+            azure_endpoint=endpoint,
+            api_key=key,
+            api_version=AzureConfig.OPENAI_API_VERSION,
         )
         # azure_endpoint = Adress od our END_POINT w Azure
         # api_key = passwort to Azure API
-        
+
         # Sending question to GPT-4o
         response = client.chat.completions.create(
             model="gpt-4o",
             temperature=0.0,
             max_tokens=400,
             messages=[
-                {"role": "system", "content": "You are an expert of data analysis and charts."},
-                {"role": "user", "content": prompt}
-            ]
+                {
+                    "role": "system",
+                    "content": "You are an expert of data analysis and charts.",
+                },
+                {"role": "user", "content": prompt},
+            ],
         )
         # This is "conversation with GPT-4"
         # - System: mówi modelowi kim ma być (ekspertem) gives role to AI model
-        # - User: wysyła faktyczne dane OCR do interpretacji sends OCR-data to interpret 
+        # - User: wysyła faktyczne dane OCR do interpretacji sends OCR-data to interpret
 
-        output = response.choices[0].message.content.strip()
+        raw_contex = response.choices[0].message.content
+
+        if not raw_contex:
+            print("⚠️ OpenAI returned no content.")
+            return "Error: AI provided no interpretation."
+
+        output = raw_contex.strip()
         # Taking the answer
         # .choice[0] = choosing first proposition of models answer
         # .message.content = it's the messeage itself without metadata
@@ -83,7 +106,7 @@ def interpret(ocr_text: str) -> str:
         print("\n--- Interpretation results ---")
         print(output)
         # printing the result for testing
-        
+
         return output
         # Saving results for further steps in main
 
@@ -91,6 +114,7 @@ def interpret(ocr_text: str) -> str:
         # If any errors (internet connection, invalid credentials in .env)
         print(f"\nError: {e}")
         return "Nie udało się zinterpretować danych OCR. Could not interpret OCR data"
+
 
 # LOCAL TEST
 # Data for testing in local envirement
@@ -130,5 +154,3 @@ if __name__ == "__main__":
     output = interpret(test2)
     print("\nInterpreted data:")
     print(output)
-    
-
