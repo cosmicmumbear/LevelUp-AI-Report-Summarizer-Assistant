@@ -1,0 +1,17 @@
+Number of Households
+in the USA Owning Pets
+Small Animal
+Reptile
+Fish, Saltwater
+Fish, Freshwater
+Equine
+Dog
+Cat
+Bird
+0
+10
+20
+30
+40
+50
+Millions of Households

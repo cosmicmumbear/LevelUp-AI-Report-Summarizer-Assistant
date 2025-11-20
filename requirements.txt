@@ -1,5 +1,5 @@
 # Azure AI Vision SDK dla OCR / Vision (odczyt tekstu z wykresu) 
-azure-ai-vision-imageanalysis 
+azure-ai-vision-imageanalysis==1.0.0
 
 # Biblioteka OpenAI dla GPT-4o Vision i generowania streszczenia (Chat Completions/Completions)
 openai
@@ -11,3 +11,23 @@ azure-storage-blob
 python-dotenv
 gradio
 azure.identity # logowanko
+
+# Azure Computer Vision Project Requirements
+# AI-102 Certification Practice
+
+# Core Azure Cognitive Services SDKs
+azure-cognitiveservices-vision-computervision==0.9.0
+azure-cognitiveservices-vision-customvision==3.1.0
+
+# Azure Core (for exception handling)
+azure-core>=1.30.0
+
+# Authentication
+msrest==0.7.1
+
+# Environment variable management
+python-dotenv==1.0.0
+
+# Optional: For enhanced functionality
+# requests==2.31.0  # For handling image downloads
+# Pillow==10.1.0    # For local image processing
