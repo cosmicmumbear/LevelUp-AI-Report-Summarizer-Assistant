@@ -58,4 +58,4 @@ def analyze_report_file(report_file: gr.File) -> tuple:
         print(f"[Pipeline] CRITICAL ERROR: {e} !")
         error_msg = f"An unexpected error occurred during processing: {str(e)}"
 
-    return error_msg, error_msg, error_msg
+    return error_msg, error_msg, error_msg, err_msg
