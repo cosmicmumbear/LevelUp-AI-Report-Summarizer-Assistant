@@ -1,5 +1,5 @@
 # Azure AI Vision SDK dla OCR / Vision (odczyt tekstu z wykresu) 
-azure-ai-vision-imageanalysis 
+azure-ai-vision-imageanalysis==1.0.0
 
 # Biblioteka OpenAI dla GPT-4o Vision i generowania streszczenia (Chat Completions/Completions)
 openai
@@ -20,7 +20,7 @@ azure-cognitiveservices-vision-computervision==0.9.0
 azure-cognitiveservices-vision-customvision==3.1.0
 
 # Azure Core (for exception handling)
-azure-core==1.29.5
+azure-core>=1.30.0
 
 # Authentication
 msrest==0.7.1
