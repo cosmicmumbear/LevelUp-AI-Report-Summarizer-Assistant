@@ -10,7 +10,7 @@ from .config import AzureConfig
 from typing import Any
 
 
-def get_text_from_file(plik: str) -> str:
+def get_text_from_file(plik: Any) -> str:
     """
     Ekstrakcja tekstu z pliku PNG lub PDF przy użyciu Azure Computer Vision Read API.
     :param plik: Ścieżka do pliku lokalnego (PNG lub PDF).
