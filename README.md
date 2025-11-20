@@ -1,42 +1,65 @@
-### LevelUp-AI-Report-Summarizer-Assistant
-# TEMAT:
-AI Report Summarizer - Asystent, który przetwarza raporty z wykresami (np. PNG, PDF) i generuje podsumowanie danych.
-Zakres: 
-- OCR / Vision SDK – odczyt tekstu z wykresu. 
-- GPT-4o Vision SDK – interpretacja danych.
-- Generowanie streszczenia (OpenAI completions). 
-- Testy jakości i prezentacja wyników.
-- UI demo.
-  
-### NASZA PROPOZYCJA
+# LevelUp-AI-Report-Summarizer-Assistant
 
-The application showcases how PDFs can be ingested and intelligently scanned to determine their content.
+## TEMAT
+AI Report Summarizer – Asystent, który przetwarza raporty z wykresami (np. PNG, PDF) i generuje podsumowanie danych.  
 
-## The application's workflow is as follows:
+**Zakres:**  
+- OCR / Vision SDK – odczyt tekstu z wykresu  
+- GPT-4o Vision SDK – interpretacja danych  
+- Generowanie streszczenia (OpenAI Completions)  
+- Testy jakości i prezentacja wyników  
+- UI demo  
 
-    1. Say Hello My Friend and ask for file with chart to analyse (PNG/PDF)
-    2. PNGs/PDFs are uploaded to a blob storage input container.
-    3. Downloads the blob (PDF/PNG).
-    4. Utilizes the OCR/Vision SDK endpoint to extract the text from the PNG/PDF.
-    5. Sends the extracted text to Azure Open AI to analyze and determine the content of the file.
-    6. Send the content of the file to the OpenAI Completions to create a summary.
-    7. Save the summary results from Azure Open AI to a new file and upload it to the output blob container. / Print summary on the UI?  ?????(DZIEWCZYNY???)
+---
 
-Below, you will find the instructions to set up and run this app locally...
+## NASZA PROPOZJA
+The application demonstrates how PDFs and images can be ingested, scanned, and intelligently summarized.  
 
-## Prerequsites
-- Create an active Azure subscription.
-- Install the latest Azure Functions Core Tools to use the CLI
-- Python 3.10 or greater
-- Access permissions to create Azure OpenAI resources and to deploy models.
+---
 
-## .env
-You will need to configure a .env file at the root of the repo that looks similar to the below. Make sure to replace the placeholders with your specific values.
-{
+## Workflow
+1. Greet the user and ask for a file with a chart to analyze (PNG/PDF/JPG).  
+2. Upload the file to the **input blob storage container**.  
+3. Use the **OCR/Vision SDK** endpoint to extract text from the file.  
+4. Send the extracted text to **Azure OpenAI** for analysis and interpretation.  
+5. Forward the interpreted content to **OpenAI Completions** to generate a summary.  
+6. Save the summary as a new file and upload it to the **output blob storage container**.  
+7. Display the results (steps 4–6) in the UI.  
+
+---
+
+## Prerequisites
+- Active Azure subscription  
+- Installed dependencies from `requirements.txt`  
+- Python 3.9+  
+- Access permissions to create Azure OpenAI resources and deploy models  
+
+---
+
+## .env Configuration
+At the root of the repo, create a `.env` file with the following structure (replace placeholders with your values):
+
+```env
 API_KEY="YourApiKey"
 API_ENDPOINT="YourEndpoint"
 API_VERSION="2024-12-01-preview"
 DEPLOYMENT="gpt-4o"
-}
 
+---
 
+## Running the App Locally
+
+1. Install dependencies:
+
+    python -m pip install -r requirements.txt
+
+2. Start the application: 
+
+    python app.py
+
+3. Upload your file through the UI.
+4. After a few seconds, enjoy the summarized results of your awesome application 😄
+
+### Roadmap
+
+⚠️ Be aware that version 2.0 is coming soon… with big bear foot 🐾
