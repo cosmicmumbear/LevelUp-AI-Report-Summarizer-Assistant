@@ -6,6 +6,8 @@ example_file_path = os.path.join(os.getcwd(), "data")
 example_1 = os.path.join(example_file_path, "Wydatki.pdf")
 example_2 = os.path.join(example_file_path, "Wydatki.png")
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 demo = gr.Interface(
     fn=analyze_report_file,
     inputs=gr.File(label="File"),
@@ -25,4 +27,4 @@ demo = gr.Interface(
 
 if __name__ == "__main__":
     print("Launching Gradio application...")
-    demo.launch()
+    demo.launch(allowed_paths=[BASE_DIR])
