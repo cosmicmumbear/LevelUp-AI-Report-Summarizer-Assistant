@@ -31,21 +31,21 @@ def analyze_report_file(report_file: Any) -> tuple:
     image_preview_path = None
 
     if report_file:
-        filename = report_file.name.lower()
+
+        filename = getattr(report_file, "name", "").lower()
 
         if filename.endswith((".png", ".jpg", ".jpeg")):
             image_preview_path = report_file.name
 
         elif filename.endswith(".pdf"):
-            base_dir = os.path.dirname(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            )
+
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             icon_path = os.path.join(base_dir, "assets", "pdf_icon.png")
 
             if os.path.exists(icon_path):
                 image_preview_path = icon_path
             else:
-                print(f"File not found: assets/pdf_icon.png not in: {icon_path}")
+                print(f"File not found error: assets/pdf_icon.png!")
 
     err_msg = "Processing Error"
 
