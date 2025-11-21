@@ -1,11 +1,12 @@
-import gradio as gr
+from typing import Any
+import os
 
 from .modul_ocr import get_text_from_file
 from .data_interpreter import interpret
 from .summarizer import create_summary, create_short_summary
 
 
-def analyze_report_file(report_file: gr.File) -> tuple:
+def analyze_report_file(report_file: Any) -> tuple:
     """
     Executes the full analysis pipeline on uploaded file.
 
@@ -13,11 +14,12 @@ def analyze_report_file(report_file: gr.File) -> tuple:
         report_file(gr.File): The file object uploaded by the user via the Gradio interface.
 
     Returns:
-        tuple: A 4-tuple of strings, in the following order, which corresponds to the 'outputs' in app.py:
-            1. short_desc (str): A brief, one-line description of the chart.
-            2. text (str): The raw text extracted by the OCR module.
-            3. key_insights (str): Bullet list of key insights from the data.
-            4. conclusion (str): Conclusion paragraph.
+        tuple: A 5-tuple of strings, in the following order, which corresponds to the 'outputs' in app.py:
+            1. image_path (str): Path to the image preview (or PDF icon).
+            2. short_desc (str): A brief, one-line description of the chart.
+            3. text (str): The raw text extracted by the OCR module.
+            4. key_insights (str): Bullet list of key insights from the data.
+            5. conclusion (str): Conclusion paragraph.
 
     Raises:
         Exception: Catches and logs any exceptions from the sub-modules,returning user-friendly error messages to
@@ -25,6 +27,25 @@ def analyze_report_file(report_file: gr.File) -> tuple:
     """
 
     print("--- [Pipeline] Analysis started... ---")
+
+    image_preview_path = None
+
+    if report_file:
+        filename = report_file.name.lower()
+
+        if filename.endswith((".png", ".jpg", ".jpeg")):
+            image_preview_path = report_file.name
+
+        elif filename.endswith(".pdf"):
+            base_dir = os.path.dirname(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            )
+            icon_path = os.path.join(base_dir, "assets", "pdf_icon.png")
+
+            if os.path.exists(icon_path):
+                image_preview_path = icon_path
+            else:
+                print(f"File not found: assets/pdf_icon.png not in: {icon_path}")
 
     err_msg = "Processing Error"
 
@@ -52,10 +73,10 @@ def analyze_report_file(report_file: gr.File) -> tuple:
 
         print("[Pipeline] Finished successfully.")
 
-        return short_desc, text, key_insights, conclusion
+        return image_preview_path, short_desc, text, key_insights, conclusion
 
     except Exception as e:
         print(f"[Pipeline] CRITICAL ERROR: {e} !")
         error_msg = f"An unexpected error occurred during processing: {str(e)}"
 
-    return error_msg, error_msg, error_msg, err_msg
+    return image_preview_path, error_msg, error_msg, error_msg, err_msg
