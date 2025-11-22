@@ -12,19 +12,18 @@ AI Report Summarizer – Asystent, który przetwarza raporty z wykresami (np. PN
 
 ---
 
-## NASZA PROPOZJA
-The application demonstrates how PDFs and images can be ingested, scanned, and intelligently summarized.  
+# NASZA PROPOZJA
+# The application demonstrates how PDFs and images can be ingested, scanned, and intelligently summarized.  
 
 ---
 
 ## Workflow
-1. Greet the user and ask for a file with a chart to analyze (PNG/PDF/JPG).  
-2. Upload the file to the **input blob storage container**.  
+1. Greet the user and ask for a file with a chart to analyze (PNG/PDF).  
+2. Upload the file.
 3. Use the **OCR/Vision SDK** endpoint to extract text from the file.  
 4. Send the extracted text to **Azure OpenAI** for analysis and interpretation.  
 5. Forward the interpreted content to **OpenAI Completions** to generate a summary.  
-6. Save the summary as a new file and upload it to the **output blob storage container**.  
-7. Display the results (steps 4–6) in the UI.  
+6. Display the results (steps 3–5) in the UI.  
 
 ---
 
@@ -32,7 +31,6 @@ The application demonstrates how PDFs and images can be ingested, scanned, and i
 - Active Azure subscription  
 - Installed dependencies from `requirements.txt`  
 - Python 3.9+  
-- Access permissions to create Azure OpenAI resources and deploy models  
 
 ---
 
@@ -40,10 +38,18 @@ The application demonstrates how PDFs and images can be ingested, scanned, and i
 At the root of the repo, create a `.env` file with the following structure (replace placeholders with your values):
 
 ```env
-API_KEY="YourApiKey"
-API_ENDPOINT="YourEndpoint"
-API_VERSION="2024-12-01-preview"
-DEPLOYMENT="gpt-4o"
+================================
+Azure Computer Vision (dla czesci OCR)
+================================
+VISION_ENDPOINT=""
+VISION_KEY=""
+================================
+Azure OpenAI (dla summarizer.py i data_interpreter.py)
+================================
+AZURE_OPENAI_VERSION =""  
+AZURE_OPENAI_ENDPOINT=""
+AZURE_OPENAI_KEY=""
+AZURE_OPENAI_DEPLOYMENT_NAME =""
 
 ---
 
