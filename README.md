@@ -29,14 +29,25 @@ Below, you will find the instructions to set up and run this app locally...
 - Install the latest Azure Functions Core Tools to use the CLI
 - Python 3.10 or greater
 - Access permissions to create Azure OpenAI resources and to deploy models.
+- Gradio
 
 ## .env
 You will need to configure a .env file at the root of the repo that looks similar to the below. Make sure to replace the placeholders with your specific values.
 {
-API_KEY="YourApiKey"
-API_ENDPOINT="YourEndpoint"
-API_VERSION="2024-12-01-preview"
-DEPLOYMENT="gpt-4o"
+# ================================
+# Azure Computer Vision (dla czesci OCR)
+# ================================
+VISION_ENDPOINT=""
+VISION_KEY=""
+
+
+# ================================
+# Azure OpenAI (dla summarizer.py i data_interpreter.py)
+# ================================
+AZURE_OPENAI_VERSION =""  
+AZURE_OPENAI_ENDPOINT=""
+AZURE_OPENAI_KEY=""
+AZURE_OPENAI_DEPLOYMENT_NAME =""
 }
 
 

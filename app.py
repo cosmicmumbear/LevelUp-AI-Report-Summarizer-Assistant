@@ -13,14 +13,13 @@ demo = gr.Interface(
     inputs=gr.File(label="File"),
     outputs=[
         gr.Image(label="Chart Preview", type="filepath", height=300),
-        gr.Textbox(label="Short Description"),
-        gr.Textbox(label="Extracted Data"),
-        gr.Textbox(label="Key Insights"),
-        gr.Textbox(label="Conclusion"),
-    ],
-    examples=[example_1, example_2],
-    title="Chart Analysis Assistant",
-    description="Upload a PNG or PDF file with a chart to get detailed analysis and insights.",
+        gr.Textbox(label="Short Description-Elevator Pitch in 2 Lines"),
+        gr.Textbox(label="Key Insights-Aha! Moments"), 
+        gr.Textbox(label="Conclusion-Final Boss Level"),
+        gr.Textbox(label="Extracted Data-Nerd Nuggets"),],
+        examples=[example_1, example_2],
+        title="Awesome&Best Ever Chart Analysis Assistant",
+        description="Hello My Dear Friend! Upload a PNG or PDF file with a chart to get detailed analysis and insights.",
     live=True,
 )
 
