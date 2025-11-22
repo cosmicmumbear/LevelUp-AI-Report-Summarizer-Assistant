@@ -77,7 +77,7 @@ def analyze_report_file(report_file: Any) -> tuple:
 
         print("[Pipeline] Finished successfully.")
 
-        return image_preview_path, short_desc, text, key_insights, conclusion
+        return image_preview_path, short_desc, key_insights, conclusion, text
 
     except Exception as e:
         print(f"[Pipeline] CRITICAL ERROR: {e} !")
