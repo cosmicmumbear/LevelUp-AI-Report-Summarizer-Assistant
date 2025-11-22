@@ -36,11 +36,11 @@ def get_text_from_file(plik: Any) -> str:
             print(f"Rozpoczynam OCR dla pliku: {plik} ---")
             # Wywołanie Read API dla strumienia pliku
 
-        read_response: Any = client.read_in_stream(f, raw=True)
-        headers = read_response.headers
+            read_response: Any = client.read_in_stream(f, raw=True)
+            headers = read_response.headers
 
-        # Pobieramy wartość bezpiecznie metodą .get()
-        operation_location = headers.get("Operation-Location")
+            # Pobieramy wartość bezpiecznie metodą .get()
+            operation_location = headers.get("Operation-Location")
 
         # Jeśli Azure nie zwrócił lokalizacji operacji (co byłoby dziwne, ale możliwe przy błędzie)
         if not operation_location:
