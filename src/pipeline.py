@@ -26,6 +26,10 @@ def analyze_report_file(report_file: Any) -> tuple:
             all UI fields.
     """
 
+    if report_file is None:
+        print("[Pipeline] Action CLEAR detected.")
+        return None, "", "", "", ""
+
     print("--- [Pipeline] Analysis started... ---")
 
     image_preview_path = None
